@@ -18,6 +18,7 @@ const ItemList = ({authConfig, requestItemFlag, setRequestItemFlag}) => {
             }
         }).then(res => res.json()).then(data => {
             setItemArray(data.result)
+            console.log(data.result)
         })
     }
 

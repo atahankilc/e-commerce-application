@@ -12,11 +12,13 @@ async function item(req, res) {
             acknowledged: result.acknowledged
         })
     } else if (req.method === "DELETE") {
-        const result = await db.collection("items").deleteOne({_id: new ObjectId(req.body.id)})
+        const resultItems = await db.collection("items").deleteOne({_id: new ObjectId(req.body.id)})
+        const resultRatings = await db.collection("ratings").deleteMany({itemId: new ObjectId(req.body.id)})
+        const resultReviews = await db.collection("reviews").deleteMany({itemId: new ObjectId(req.body.id)})
         await client.close()
         res.status(200).json({
             action: "delete",
-            deletedCount: result.deletedCount
+            deletedCount: resultItems.deletedCount
         })
     }
 }

@@ -1,4 +1,5 @@
 import {useRef} from "react";
+import Review from "./Review";
 
 const Item = ({item, authConfig, setRequestItemFlag}) => {
 
@@ -9,7 +10,7 @@ const Item = ({item, authConfig, setRequestItemFlag}) => {
         const reqBody = {
             rating: parseInt(ratingRef.current.value),
             itemId: item._id,
-            userId: authConfig.userId
+            username: authConfig.username
         }
 
         fetch("/api/rating", {
@@ -20,7 +21,9 @@ const Item = ({item, authConfig, setRequestItemFlag}) => {
             }
         }).then(res => res.json()).then(data => {
             if (data.modifiedCount > 0 || data.upsertedCount > 0) {
-                setRequestItemFlag(prevState => {return !prevState})
+                setRequestItemFlag(prevState => {
+                    return !prevState
+                })
             }
         })
     }
@@ -29,7 +32,7 @@ const Item = ({item, authConfig, setRequestItemFlag}) => {
         const reqBody = {
             review: reviewRef.current.value,
             itemId: item._id,
-            userId: authConfig.userId
+            username: authConfig.username
         }
 
         fetch("/api/review", {
@@ -40,7 +43,9 @@ const Item = ({item, authConfig, setRequestItemFlag}) => {
             }
         }).then(res => res.json()).then(data => {
             if (data.modifiedCount > 0 || data.upsertedCount > 0) {
-                setRequestItemFlag(prevState => {return !prevState})
+                setRequestItemFlag(prevState => {
+                    return !prevState
+                })
             }
         })
     }
@@ -58,10 +63,24 @@ const Item = ({item, authConfig, setRequestItemFlag}) => {
             }
         }).then(res => res.json()).then(data => {
             if (data.deletedCount > 0) {
-                setRequestItemFlag(prevState => {return !prevState})
+                setRequestItemFlag(prevState => {
+                    return !prevState
+                })
                 alert("item removed!")
             }
         })
+    }
+
+    let result = 0
+    let yourRating = -1
+    if(item.ratings.length > 0) {
+        item.ratings.forEach((ratingObject) => (
+           result += ratingObject.rating
+        ))
+        item.ratings.forEach((ratingObject) => (
+            ratingObject.username === authConfig.username ? yourRating = ratingObject.rating : undefined
+        ))
+        result /= item.ratings.length
     }
 
     return (
@@ -71,10 +90,23 @@ const Item = ({item, authConfig, setRequestItemFlag}) => {
                 <p>Description: {item.description}</p>
                 <p>Price: {item.price}</p>
                 <p>Seller: {item.seller}</p>
-                <p>Image: {item.image}</p>
+                <a href={item.image}>Image: <img src={item.image} alt={"Item Image"}/></a>
                 {item.category === "Clothing" && <p>Size: {item.size}</p>}
                 {item.category === "Clothing" && <p>Colour: {item.colour}</p>}
                 {item.category === "Computer Components" && <p>Spec: {item.spec}</p>}
+                <p style={{border: "solid", margin: "5px", padding: "5px"}}>
+                    Rating: {result} / 10
+                    <br/>
+                    Rating Count: {item.ratings.length}
+                    <br/>
+                    {yourRating >= 0 && `Your Rating : ${yourRating}`}
+                </p>
+                <div style={{border: "solid", margin: "5px", padding: "5px"}}>
+                    <p>Reviews</p>
+                    {item.reviews.length > 0 && item.reviews.map(review => (
+                        <Review key={review._id} review={review} username={authConfig.username}/>))}
+                    {item.reviews.length === 0 && <p>- No Review To List -</p>}
+                </div>
             </div>
             {authConfig.isLogin && !authConfig.isAdmin && <div>
                 <input placeholder={"Rating"} type={"number"} max={10} ref={ratingRef}/>

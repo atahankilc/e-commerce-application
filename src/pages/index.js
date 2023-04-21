@@ -11,10 +11,10 @@ const Index = () => {
 
     return (
         <div>
-            <h1 style={{border: "solid", margin: "5px", padding: "5px"}}> E - commerce Application </h1>
+            <h1 style={{border: "solid", margin: "5px", padding: "5px"}}> Mockify E-Commerce Application </h1>
             <Auth authConfig={authConfig} setAuthConfig={setAuthConfig}/>
             {authConfig.isAdmin && <AddItem setRequestItemFlag={setRequestItemFlag}/>}
-            {authConfig.isAdmin && <User/>}
+            {authConfig.isAdmin && <User setRequestItemFlag={setRequestItemFlag}/>}
             <ItemList authConfig={authConfig} requestItemFlag={requestItemFlag} setRequestItemFlag={setRequestItemFlag}/>
         </div>
     )

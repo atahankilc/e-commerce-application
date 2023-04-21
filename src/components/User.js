@@ -1,6 +1,6 @@
 import {useRef} from "react";
 
-const User = () => {
+const User = ({setRequestItemFlag}) => {
 
     const usernameRef = useRef()
 
@@ -38,6 +38,7 @@ const User = () => {
         }).then(res => res.json()).then(data => {
             if (data.deleteCount > 0) {
                 alert("user removed!")
+                setRequestItemFlag(prevState => {return !prevState})
             } else {
                 alert("user not exists!")
             }

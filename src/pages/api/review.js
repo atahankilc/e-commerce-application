@@ -7,13 +7,13 @@ async function review(req, res) {
     if (req.method === "PUT") {
         const result = await db.collection("reviews").updateOne({
                 itemId: new ObjectId(req.body.itemId),
-                userId: new ObjectId(req.body.userId)
+                username: req.body.username
             },
             {
                 $set: {review: req.body.review,},
                 $setOnInsert: {
                     itemId: new ObjectId(req.body.itemId),
-                    userId: new ObjectId(req.body.userId)
+                    username: req.body.username
                 }
             },
             {upsert: true})

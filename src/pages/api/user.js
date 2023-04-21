@@ -19,11 +19,13 @@ async function user(req, res) {
             upsertCount: result.upsertedCount
         })
     } else if (req.method === "DELETE") {
-        const result = await db.collection("users").deleteOne({username: username})
+        const resultUsers = await db.collection("users").deleteOne({username: username})
+        const resultRatings = await db.collection("ratings").deleteMany({username: username})
+        const resultReviews = await db.collection("reviews").deleteMany({username: username})
         await client.close()
         res.status(200).json({
             action: "delete",
-            deleteCount: result.deletedCount
+            deleteCount: resultUsers.deletedCount
         })
     }
 }
