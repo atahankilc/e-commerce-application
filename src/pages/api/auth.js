@@ -9,7 +9,7 @@ async function auth(req, res) {
     if (result && !result.isAdmin && req.body.password === "") {
         res.status(200).json({isLogin: true, isAdmin: false, username: result.username, userId: result._id})
     } else if (result && result.isAdmin && result.password === req.body.password) {
-        res.status(200).json({isLogin: true, isAdmin: true, username: result.username, userId: result._id})
+        res.status(200).json({isLogin: false, isAdmin: true, username: result.username, userId: result._id})
     } else {
         res.status(200).json({isLogin: false, isAdmin: false})
     }

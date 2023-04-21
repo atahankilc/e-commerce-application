@@ -1,36 +1,20 @@
 import Item from "./Item";
-import {useEffect, useState} from "react";
+import {useContext} from "react";
+import ItemContext from "../context/item-context";
 
-const ItemList = ({authConfig, requestItemFlag, setRequestItemFlag}) => {
-    const [itemArray, setItemArray] = useState([])
+const ItemList = () => {
 
-    const [filter, setFilter] = useState("All")
+    const itemContext = useContext(ItemContext)
 
     const filterHandler = (e) => {
-        setFilter(e.target.value)
+        itemContext.changeFilter(e.target.value)
     }
-
-    const fetchItemsHandler = () => {
-        fetch(`/api/item/${filter}`, {
-            method: "GET",
-            headers: {
-                "Content-Type": "application/json"
-            }
-        }).then(res => res.json()).then(data => {
-            setItemArray(data.result)
-            console.log(data.result)
-        })
-    }
-
-    useEffect(() => {
-        fetchItemsHandler()
-    }, [requestItemFlag, filter])
 
     return (
         <div style={{border: "solid", margin: "5px", padding: "5px"}}>
             <div style={{border: "solid", margin: "5px", padding: "5px"}}>
                 <p>Filter</p>
-                <select name="Filter" onChange={filterHandler} required defaultValue={""}>
+                <select name="Filter" onChange={filterHandler} required defaultValue={itemContext.filter}>
                     <option value="All">All Categories</option>
                     <option value="Clothing">Clothing</option>
                     <option value="Computer Components">Computer Components</option>
@@ -40,9 +24,10 @@ const ItemList = ({authConfig, requestItemFlag, setRequestItemFlag}) => {
             </div>
             <div style={{border: "solid", margin: "5px", padding: "5px"}}>
                 <p>Items</p>
-                {itemArray.length > 0 && itemArray.map(item => (
-                    <Item key={item._id} item={item} authConfig={authConfig} setRequestItemFlag={setRequestItemFlag}/>))}
-                {itemArray.length === 0 && <p>No Item To List</p>}
+                {!!itemContext.isLoading && <p>Loading...</p>}
+                {!itemContext.isLoading && itemContext.array.length > 0 && itemContext.array.map(item => (
+                    <Item key={item._id} item={item}/>))}
+                {!itemContext.isLoading && itemContext.array.length === 0 && <p>No Item To List</p>}
             </div>
         </div>
     )

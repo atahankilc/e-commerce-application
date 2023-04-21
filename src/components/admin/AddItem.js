@@ -1,6 +1,9 @@
-import {useRef, useState} from "react";
+import {useContext, useRef, useState} from "react";
+import ItemContext from "../../context/item-context";
 
-const AddItem = ({setRequestItemFlag}) => {
+const AddItem = () => {
+
+    const itemContext = useContext(ItemContext)
     const [itemCategory, setItemCategory] = useState("")
     const nameRef = useRef(null)
     const descriptionRef = useRef(null)
@@ -13,7 +16,6 @@ const AddItem = ({setRequestItemFlag}) => {
 
     const addItem = () => {
         let reqBody
-
         if (itemCategory === "") {
             alert("Choose Category")
             return
@@ -57,7 +59,7 @@ const AddItem = ({setRequestItemFlag}) => {
             }
         }).then(res => res.json()).then(data => {
             if (data.acknowledged) {
-                setRequestItemFlag(prevState => {return !prevState})
+                itemContext.requestReload()
                 alert("item added!")
             }
         })

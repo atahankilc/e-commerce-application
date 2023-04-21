@@ -1,6 +1,6 @@
 import {MongoClient} from "mongodb";
 
-async function user(req, res) {
+async function index(req, res) {
     const username = req.body.username
 
     const client = await MongoClient.connect("mongodb+srv://admin_ceng495:apth9HShfcUp8fnI@cluster0.4dmnugs.mongodb.net/?retryWrites=true&w=majority")
@@ -30,4 +30,4 @@ async function user(req, res) {
     }
 }
 
-export default user
+export default index

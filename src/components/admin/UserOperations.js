@@ -1,7 +1,9 @@
-import {useRef} from "react";
+import {useContext, useRef} from "react";
+import ItemContext from "../../context/item-context";
 
-const User = ({setRequestItemFlag}) => {
+const UserOperations = () => {
 
+    const itemContext = useContext(ItemContext)
     const usernameRef = useRef()
 
     const addUser = () => {
@@ -38,7 +40,7 @@ const User = ({setRequestItemFlag}) => {
         }).then(res => res.json()).then(data => {
             if (data.deleteCount > 0) {
                 alert("user removed!")
-                setRequestItemFlag(prevState => {return !prevState})
+                itemContext.requestReload()
             } else {
                 alert("user not exists!")
             }
@@ -55,4 +57,4 @@ const User = ({setRequestItemFlag}) => {
     )
 }
 
-export default User
+export default UserOperations
