@@ -12,7 +12,7 @@ const Item = ({item}) => {
 
     const rateHandler = () => {
         const reqBody = {
-            rating: parseInt(ratingRef.current.value),
+            rating: Math.max(Math.min(10, parseInt(ratingRef.current.value)),0),
             itemId: item._id,
             username: authContext.authConfig.username
         }
@@ -52,9 +52,9 @@ const Item = ({item}) => {
 
     let result = 0
     let yourRating = -1
-    if(item.ratings.length > 0) {
+    if (item.ratings.length > 0) {
         item.ratings.forEach((ratingObject) => (
-           result += ratingObject.rating
+            result += ratingObject.rating
         ))
         item.ratings.forEach((ratingObject) => (
             ratingObject.username === authContext.authConfig.username ? yourRating = ratingObject.rating : undefined
@@ -69,7 +69,10 @@ const Item = ({item}) => {
                 <p>Description: {item.description}</p>
                 <p>Price: {item.price}</p>
                 <p>Seller: {item.seller}</p>
-                <a href={item.image}>Image: <img src={item.image} alt={"Item Image"}/></a>
+                <a href={item.image}>Image: <img src={item.image} alt={"Item Image"} style={{
+                    width: "100%",
+                    maxWidth: "100px"
+                }}/></a>
                 {item.category === "Clothing" && <p>Size: {item.size}</p>}
                 {item.category === "Clothing" && <p>Colour: {item.colour}</p>}
                 {item.category === "Computer Components" && <p>Spec: {item.spec}</p>}

@@ -49,7 +49,10 @@ const RemoveItem = () => {
                         <p>Description: {item.description}</p>
                         <p>Price: {item.price}</p>
                         <p>Seller: {item.seller}</p>
-                        <a href={item.image}>Image: <img src={item.image} alt={"Item Image"}/></a>
+                        <a href={item.image}>Image: <img src={item.image} alt={"Item Image"} style={{
+                            width: "100%",
+                            maxWidth: "100px"
+                        }}/></a>
                         {item.category === "Clothing" && <p>Size: {item.size}</p>}
                         {item.category === "Clothing" && <p>Colour: {item.colour}</p>}
                         {item.category === "Computer Components" && <p>Spec: {item.spec}</p>}

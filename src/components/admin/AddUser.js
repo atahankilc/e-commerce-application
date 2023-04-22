@@ -1,9 +1,9 @@
 import {useContext, useRef} from "react";
-import ItemContext from "../../context/item-context";
+import PageContext from "../../context/page-context";
 
-const UserOperations = () => {
+const AddUser = ({reloadHandler}) => {
 
-    const itemContext = useContext(ItemContext)
+    const pageContext = useContext(PageContext)
     const usernameRef = useRef()
 
     const addUser = () => {
@@ -21,28 +21,8 @@ const UserOperations = () => {
             if (data.matchedCount > 0 && data.upsertCount === 0) {
                 alert("user already exists!")
             } else if (data.matchedCount === 0 && data.upsertCount > 0) {
-                alert("user added!")
-            }
-        })
-    }
-
-    const removeUser = () => {
-        const reqBody = {
-            username: usernameRef.current.value
-        }
-
-        fetch("/api/user", {
-            method: "DELETE",
-            body: JSON.stringify(reqBody),
-            headers: {
-                "Content-Type": "application/json"
-            }
-        }).then(res => res.json()).then(data => {
-            if (data.deleteCount > 0) {
-                alert("user removed!")
-                itemContext.requestReload()
-            } else {
-                alert("user not exists!")
+                pageContext.requestReload()
+                reloadHandler()
             }
         })
     }
@@ -52,9 +32,8 @@ const UserOperations = () => {
             <p>Add User</p>
             <input ref={usernameRef} placeholder={"username"}/>
             <button onClick={addUser}>Add User</button>
-            <button onClick={removeUser}>Remove User</button>
         </div>
     )
 }
 
-export default UserOperations
+export default AddUser
