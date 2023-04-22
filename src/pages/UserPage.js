@@ -59,7 +59,7 @@ const UserPage = () => {
                                     : {result.toFixed(2)} / 10</p>
                             </div>
                             <div className={"flex flex-col bg-white text-black"}>
-                                <p className={"mx-5 p-2"}>User Reviews</p>
+                                <p className={"mx-5 p-2"}>User Reviews ({reviews.length})</p>
                                 {reviews}
                             </div>
                         </div>
