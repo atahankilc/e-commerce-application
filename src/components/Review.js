@@ -1,11 +1,9 @@
 const Review = ({review, username}) => {
     return (
-        <p style={{
-            border: "solid",
-            background: `${review.username === username ? "green" : "white"}`,
-            margin: "5px",
-            padding: "5px"
-        }}> {review.username === username && "Your Review: "} {review.review} </p>
+        <div className={"flex flex-row items-center border"}>
+            {review.username === username && <p className={"p-1 bg-blue-400 text-white"}>Your Review</p>}
+            <p className={"grow p-1"}>  {review.review} </p>
+        </div>
     )
 }
 

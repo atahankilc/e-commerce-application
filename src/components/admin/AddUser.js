@@ -28,10 +28,10 @@ const AddUser = ({reloadHandler}) => {
     }
 
     return (
-        <div style={{border: "solid", margin: "5px", padding: "5px"}}>
-            <p>Add User</p>
-            <input ref={usernameRef} placeholder={"username"}/>
-            <button onClick={addUser}>Add User</button>
+        <div className={"flex flex-row m-2 p-2 bg-zinc-700"}>
+            <input className={"px-1"} ref={usernameRef} placeholder={"username"}/>
+            <div className={"grow"}/>
+            <button className={"bg-green-300 text-white py-1 px-2 hover:bg-green-500"} onClick={addUser}>Add User</button>
         </div>
     )
 }

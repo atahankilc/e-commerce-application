@@ -12,7 +12,7 @@ const Item = ({item}) => {
 
     const rateHandler = () => {
         const reqBody = {
-            rating: Math.max(Math.min(10, parseInt(ratingRef.current.value)),0),
+            rating: Math.max(Math.min(10, parseInt(ratingRef.current.value)), 0),
             itemId: item._id,
             username: authContext.authConfig.username
         }
@@ -63,38 +63,44 @@ const Item = ({item}) => {
     }
 
     return (
-        <div style={{border: "solid", margin: "5px", padding: "5px"}}>
+        <div className={"w-5/12 m-5 mx-auto border hover:shadow-xl"}>
             <div>
-                <p>Name: {item.name}</p>
-                <p>Description: {item.description}</p>
-                <p>Price: {item.price}</p>
-                <p>Seller: {item.seller}</p>
-                <a href={item.image}>Image: <img src={item.image} alt={"Item Image"} style={{
-                    width: "100%",
-                    maxWidth: "100px"
-                }}/></a>
-                {item.category === "Clothing" && <p>Size: {item.size}</p>}
-                {item.category === "Clothing" && <p>Colour: {item.colour}</p>}
-                {item.category === "Computer Components" && <p>Spec: {item.spec}</p>}
-                <p style={{border: "solid", margin: "5px", padding: "5px"}}>
-                    Rating: {result} / 10
-                    <br/>
-                    Rating Count: {item.ratings.length}
-                    <br/>
-                    {yourRating >= 0 && `Your Rating : ${yourRating}`}
-                </p>
-                <div style={{border: "solid", margin: "5px", padding: "5px"}}>
-                    <p>Reviews</p>
+                <div className={"flex bg-zinc-700 text-white h-10 items-center p-2"}>
+                    <p className={"mx-5"}>Name: {item.name}</p>
+                </div>
+                <div style={{width: "100%", height: "400px"}} className={"overflow-hidden"}>
+                    <a href={item.image}><img src={item.image} alt={"Item Image"} style={{
+                        width: "100%"
+                    }} className={"z-0"}/></a>
+                </div>
+                <div className={"flex flex-col bg-zinc-500 text-white p-2"}>
+                    <p className={"mx-5"}>Description: {item.description}</p>
+                    <p className={"mx-5"}>Price: {item.price}</p>
+                    <p className={"mx-5"}>Seller: {item.seller}</p>
+                    {item.category === "Clothing" && <p className={"mx-5"}>Size: {item.size}</p>}
+                    {item.category === "Clothing" && <p className={"mx-5"}>Colour: {item.colour}</p>}
+                    {item.category === "Computer Components" && <p className={"mx-5"}>Spec: {item.spec}</p>}
+                </div>
+                <div className={"flex flex-row bg-zinc-700 text-white p-2"}>
+                    <p className={"mx-5"}>Rating ({item.ratings.length}) : {result.toFixed(2)} / 10</p>
+                    {yourRating >= 0 && <p className={"mx-5"}>Your Rating : {yourRating}</p>}
+                </div>
+                <div className={"flex flex-col bg-zwhite text-black mt-0.5"}>
+                    <p className={"p-2 mx-5"}>Reviews ({item.reviews.length})</p>
                     {item.reviews.length > 0 && item.reviews.map(review => (
                         <Review key={review._id} review={review} username={authContext.authConfig.username}/>))}
-                    {item.reviews.length === 0 && <p>- No Review To List -</p>}
                 </div>
             </div>
-            {authContext.authConfig.isLogin && <div>
-                <input placeholder={"Rating"} type={"number"} max={10} ref={ratingRef}/>
-                <button onClick={rateHandler}>Rate Item</button>
-                <input placeholder={"Review"} type={"text"} ref={reviewRef}/>
-                <button onClick={reviewHandler}>Review Item</button>
+            {authContext.authConfig.isLogin && <div className={"flex flex-col"}>
+                <div className={"flex flex-row my-1"}>
+                    <input className={"m-1 p-0.5"} placeholder={"Rating"} type={"number"} max={10} ref={ratingRef}/>
+                    <div className={"grow"}/>
+                    <button className={"mx-2 w-28 bg-green-400 text-white"} onClick={rateHandler}>Rate Item</button>
+                </div>
+                <div className={"flex flex-row my-1"}>
+                    <input className={"grow m-1 p-0.5"} placeholder={"Review"} type={"text"} ref={reviewRef}/>
+                    <button className={"mx-2 w-28 bg-green-400 text-white"} onClick={reviewHandler}>Review Item</button>
+                </div>
             </div>}
         </div>
     )

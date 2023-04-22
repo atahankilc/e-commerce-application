@@ -7,10 +7,10 @@ const Pages = () => {
     const authContext = useContext(AuthContext)
 
     return (
-        <div style={{border: "solid", margin: "5px", padding: "5px"}}>
-            <p><Link href={"/"}> HomePage </Link></p>
-            {!!authContext.authConfig.isLogin && <p><Link href={"/UserPage"}> User Page </Link></p>}
-            {!!authContext.authConfig.isAdmin && <p><Link href={"/AdminPage"}> Admin Page </Link></p>}
+        <div className={"flex flex-row mx-3 grow"}>
+            <p className={"mx-3 hover:text-blue-500"}><Link href={"/"}> HomePage </Link></p>
+            {!!authContext.authConfig.isLogin && <p className={"mx-3 hover:text-blue-500"}><Link href={"/UserPage"}> User Page </Link></p>}
+            {!!authContext.authConfig.isAdmin && <p className={"mx-3 hover:text-blue-500"}><Link href={"/AdminPage"}> Admin Page </Link></p>}
         </div>
     )
 }

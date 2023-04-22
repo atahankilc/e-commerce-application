@@ -3,9 +3,11 @@ import Navbar from "./navbar/Navbar";
 const Layout = ({children}) => {
 
     return (
-        <div>
+        <div className={"relative m-0 p-0"}>
             <Navbar/>
-            {children}
+            <div className={"p-2"}>
+                {children}
+            </div>
         </div>
     )
 }

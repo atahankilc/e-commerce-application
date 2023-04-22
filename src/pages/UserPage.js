@@ -38,36 +38,40 @@ const UserPage = () => {
     let reviews = []
     if (userConfig.reviews.length > 0) {
         userConfig.reviews.forEach((reviewObject) => (
-            reviews.push(<p style={{border: "solid", margin: "5px", padding: "5px"}}>{reviewObject.review}</p>)
+            reviews.push(<div className={"flex flex-row items-center border"}>
+                <p className={"grow p-1"}>  {reviewObject.review} </p>
+            </div>)
         ))
     }
 
+
     if (!!authContext.authConfig.isLogin) {
         return (
-            <div style={{border: "solid", margin: "5px", padding: "5px"}}>
-                {!!isLoading && <p> Loading...</p>}
-                {!isLoading &&
-                    <div>
-                        <p style={{border: "solid", margin: "5px", padding: "5px"}}>Username: {userConfig.username}</p>
-                        <p style={{border: "solid", margin: "5px", padding: "5px"}}>
-                            Ratings
-                            <br/>
-                            Average Rating: {result} / 10
-                            <br/>
-                            Rating Count: {userConfig.ratings.length}
-                        </p>
-                        <div style={{border: "solid", margin: "5px", padding: "5px"}}>
-                            <p>Reviews</p>
-                            {reviews}
+            <>
+                {!isLoading && <div className={"w-5/12 m-5 mx-auto border"}>
+                    {!isLoading &&
+                        <div>
+                            <div className={"flex flex-row bg-zinc-500 text-white p-2"}>
+                                <p className={"mx-5"}>Username: {userConfig.username}</p>
+                            </div>
+                            <div className={"flex flex-row bg-zinc-700 text-white p-2"}>
+                                <p className={"mx-5"}>Average of the User Ratings ({userConfig.ratings.length})
+                                    : {result.toFixed(2)} / 10</p>
+                            </div>
+                            <div className={"flex flex-col bg-white text-black"}>
+                                <p className={"mx-5 p-2"}>User Reviews</p>
+                                {reviews}
+                            </div>
                         </div>
-                    </div>
-                }
-            </div>
+                    }
+                </div>}
+                {!!isLoading && <p className={"py-2"}> Loading...</p>}
+            </>
         )
     } else {
         return (
-            <div style={{border: "solid", margin: "5px", padding: "5px"}}>
-                <p> Login as Regular User</p>
+            <div>
+                <p className={"p-2"}> Login as Regular User</p>
             </div>
         )
 

@@ -29,34 +29,42 @@ const RemoveItem = () => {
     }
 
     return (
-        <div style={{border: "solid", margin: "5px", padding: "5px"}}>
-            <p>Remove Item</p>
-            <div style={{border: "solid", margin: "5px", padding: "5px"}}>
-                <p>Filter</p>
-                <select name="Filter" onChange={filterHandler} required defaultValue={itemContext.filter}>
+        <div className={"flex flex-col m-2 p-2 bg-zinc-700"}>
+            <div className={"flex flex-row-reverse m-1 p-1 items-center"}>
+                <select className={"m-1 p-1 border"}
+                        name="Filter" onChange={filterHandler} required defaultValue={itemContext.filter}>
                     <option value="All">All Categories</option>
                     <option value="Clothing">Clothing</option>
                     <option value="Computer Components">Computer Components</option>
                     <option value="Monitors">Monitors</option>
                     <option value="Snacks">Snacks</option>
                 </select>
+                <p className={"mx-2 px-2 text-white"}>Category Filter</p>
             </div>
-            <div style={{border: "solid", margin: "5px", padding: "5px"}}>
-                <p>Items</p>
+            <div>
                 {itemContext.array.length > 0 && itemContext.array.map(item => (
-                    <div key={item._id} style={{border: "solid", margin: "5px", padding: "5px"}}>
-                        <p>Name: {item.name}</p>
-                        <p>Description: {item.description}</p>
-                        <p>Price: {item.price}</p>
-                        <p>Seller: {item.seller}</p>
-                        <a href={item.image}>Image: <img src={item.image} alt={"Item Image"} style={{
-                            width: "100%",
-                            maxWidth: "100px"
-                        }}/></a>
-                        {item.category === "Clothing" && <p>Size: {item.size}</p>}
-                        {item.category === "Clothing" && <p>Colour: {item.colour}</p>}
-                        {item.category === "Computer Components" && <p>Spec: {item.spec}</p>}
-                        <button onClick={removeHandler.bind(undefined, item._id)}>Remove Item</button>
+                    <div key={item._id} className={"flex flex-col w-fill m-5 mx-auto border hover:shadow-xl"}>
+                        <div>
+                            <div className={"flex bg-zinc-700 text-white h-10 items-center p-2"}>
+                                <p className={"mx-5"}>Name: {item.name}</p>
+                            </div>
+                            <div style={{width: "100%", height: "400px"}} className={"overflow-hidden"}>
+                                <a href={item.image}><img src={item.image} alt={"Item Image"} style={{
+                                    width: "100%"
+                                }} className={"z-0"}/></a>
+                            </div>
+                            <div className={"flex flex-col bg-zinc-500 text-white p-2"}>
+                                <p className={"mx-5"}>Description: {item.description}</p>
+                                <p className={"mx-5"}>Price: {item.price}</p>
+                                <p className={"mx-5"}>Seller: {item.seller}</p>
+                                {item.category === "Clothing" && <p className={"mx-5"}>Size: {item.size}</p>}
+                                {item.category === "Clothing" && <p className={"mx-5"}>Colour: {item.colour}</p>}
+                                {item.category === "Computer Components" && <p className={"mx-5"}>Spec: {item.spec}</p>}
+                            </div>
+                        </div>
+                        <button className={"bg-red-300 text-white p-1 hover:bg-red-500"}
+                                onClick={removeHandler.bind(undefined, item._id)}>Remove Item
+                        </button>
                     </div>))}
                 {itemContext.array.length === 0 && <p>No Item To List</p>}
             </div>

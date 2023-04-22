@@ -70,24 +70,23 @@ const AddItem = () => {
     }
 
     return (
-        <div style={{border: "solid", margin: "5px", padding: "5px"}}>
-            <p>Add Item</p>
-            <select name="Category" onChange={categoryHandler} required defaultValue={""}>
+        <div className={"flex flex-col m-2 p-2 bg-zinc-700"}>
+            <select className={"m-1 p-1"} name="Category" onChange={categoryHandler} required defaultValue={""}>
                 <option value="">Select Category</option>
                 <option value="Clothing">Clothing</option>
                 <option value="Computer Components">Computer Components</option>
                 <option value="Monitors">Monitors</option>
                 <option value="Snacks">Snacks</option>
             </select>
-            <input ref={nameRef} placeholder={"Item Name"}/>
-            <input ref={descriptionRef} placeholder={"Item Description"}/>
-            <input ref={priceRef} placeholder={"Item Price"}/>
-            <input ref={sellerRef} placeholder={"Item Seller"}/>
-            <input ref={imageRef} placeholder={"Item Image"}/>
-            {itemCategory === "Clothing" && <input ref={sizeRef} placeholder={"Item Size"}/>}
-            {itemCategory === "Clothing" && <input ref={colourRef} placeholder={"Item Colour"}/>}
-            {itemCategory === "Computer Components" && <input ref={specRef} placeholder={"Item Spec"}/>}
-            <button onClick={addItem}>Add Item</button>
+            <input className={"m-1 p-1"} ref={nameRef} placeholder={"Item Name"}/>
+            <input className={"m-1 p-1"} ref={descriptionRef} placeholder={"Item Description"}/>
+            <input className={"m-1 p-1"} ref={priceRef} placeholder={"Item Price"}/>
+            <input className={"m-1 p-1"} ref={sellerRef} placeholder={"Item Seller"}/>
+            <input className={"m-1 p-1"} ref={imageRef} placeholder={"Item Image"}/>
+            {itemCategory === "Clothing" && <input className={"m-1 p-1"} ref={sizeRef} placeholder={"Item Size"}/>}
+            {itemCategory === "Clothing" && <input className={"m-1 p-1"} ref={colourRef} placeholder={"Item Colour"}/>}
+            {itemCategory === "Computer Components" && <input className={"m-1 p-1"} ref={specRef} placeholder={"Item Spec"}/>}
+            <button className={"bg-green-300 text-white m-1 p-1 hover:bg-green-500"} onClick={addItem}>Add Item</button>
         </div>
     )
 }

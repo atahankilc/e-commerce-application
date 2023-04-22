@@ -4,10 +4,10 @@ import Pages from "./Pages";
 const Navbar = () => {
 
     return (
-        <div style={{border: "solid", margin: "5px", padding: "5px"}}>
-            <h1 style={{border: "solid", margin: "5px", padding: "5px"}}> Mockify E-Commerce Application </h1>
-            <Auth/>
+        <div className={"sticky inset-x-0 top-0 flex flex-row p-3 bg-white shadow-xl items-center z-50"}>
+            <h1 className={"mx-3 text-xl font-bold italic"}> Mockify E-Commerce Application </h1>
             <Pages/>
+            <Auth/>
         </div>
     )
 }

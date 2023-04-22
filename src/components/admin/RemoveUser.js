@@ -40,14 +40,17 @@ const RemoveUser = ({reloadFlag, reloadHandler}) => {
 
     const list = []
     if (array.length > 0) {
-        array.forEach(user => (list.push(<div key={user.username}><p>{user.username}</p>
-            <button onClick={removeUser.bind(undefined, user.username)}>Remove User</button>
-        </div>)))
+        array.forEach(user => (list.push(
+            <div className={"flex flex-row my-0.5"} key={user.username}>
+                <p className={"px-1 text-white"}>{user.username}</p>
+                <div className={"grow"}/>
+                <button className={"bg-red-300 text-white py-1 px-2 hover:bg-red-500"} onClick={removeUser.bind(undefined, user.username)}>Remove User</button>
+            </div>
+        )))
     }
 
     return (
-        <div style={{border: "solid", margin: "5px", padding: "5px"}}>
-            <p>Remove User</p>
+        <div className={"flex flex-col m-2 p-2 bg-zinc-700"}>
             {list}
         </div>
     )

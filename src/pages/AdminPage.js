@@ -18,17 +18,23 @@ const AdminPage = () => {
 
     if (!!authContext.authConfig.isAdmin) {
         return (
-            <div style={{border: "solid", margin: "5px", padding: "5px"}}>
-                <AddUser reloadHandler={reloadHandler}/>
-                <RemoveUser reloadFlag={reloadFlag} reloadHandler={reloadHandler}/>
-                <AddItem/>
-                <RemoveItem/>
+            <div className={"w-5/12 m-5 mx-auto"}>
+                <div className={"flex flex-col p-1 border bg-zinc-300 mb-2"}>
+                    <p className={"mx-1 px-1"}>User Operations</p>
+                    <AddUser reloadHandler={reloadHandler}/>
+                    <RemoveUser reloadFlag={reloadFlag} reloadHandler={reloadHandler}/>
+                </div>
+                <div className={"flex flex-col p-1 border bg-zinc-300"}>
+                    <p className={"mx-1 px-1"}>Item Operations</p>
+                    <AddItem/>
+                    <RemoveItem/>
+                </div>
             </div>
         )
     } else {
         return (
-            <div style={{border: "solid", margin: "5px", padding: "5px"}}>
-                <p> Login as Admin</p>
+            <div>
+                <p className={"p-2"}> Login as Admin</p>
             </div>
         )
     }

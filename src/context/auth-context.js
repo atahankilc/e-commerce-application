@@ -6,8 +6,10 @@ const AuthContext = React.createContext({
 export const AuthContextProvider = ({children}) => {
 
     const [authConfig, setAuthConfig] = useState({isLogin: false, isAdmin: false})
+    const [isLoading, setIsLoading] = useState(false)
 
     const loginHandler = (username, password) => {
+        setIsLoading(true)
         const reqBody = {
             username: username,
             password: password
@@ -30,6 +32,7 @@ export const AuthContextProvider = ({children}) => {
                     userId: data.userId
                 })
             }
+            setIsLoading(false)
         })
     }
 
@@ -38,8 +41,8 @@ export const AuthContextProvider = ({children}) => {
     }
 
     const value = useMemo(() => {
-        return {authConfig, loginHandler, logoutHandler}
-    }, [authConfig])
+        return {authConfig, isLoading, loginHandler, logoutHandler}
+    }, [authConfig, isLoading])
 
     return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>
 }
